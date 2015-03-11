@@ -140,10 +140,10 @@ module Diagrams.Prelude
          -- | For working with 'Active' (i.e. animated) things.
        , module Data.Active
 
-         -- | This exports most of the lens module, excluding the
+         -- | This exports most of the lens package, excluding the
          --   following functions that can cause collisions with diagrams:
-         -- @contains@, @inside@, @outside@, @none@, @transform@, @(#)@
-         -- (replaced by @##@) and @.>@ (which is just '.' anyway).
+         --   @contains@, @inside@, @outside@, @none@, @transform@, @(#)@
+         --   (replaced by @##@) and @.>@ (which is just '.' anyway).
        , module Control.Lens
 
        , Applicative(..), (*>), (<*), (<$>), (<$), liftA, liftA2, liftA3
