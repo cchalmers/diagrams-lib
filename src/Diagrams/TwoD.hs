@@ -151,33 +151,33 @@ module Diagrams.TwoD
        , RoundedRectOpts(..), radiusTL, radiusTR, radiusBL, radiusBR
 
          -- ** Arrows
-       , arrowV, arrowV'
-       , arrowAt, arrowAt'
-       , arrowBetween, arrowBetween'
-       , connect, connect'
-       , connectPerim, connectPerim'
-       , connectOutside, connectOutside'
-       , arrow, arrow'
-       , straightShaft
-       , module Diagrams.TwoD.Arrowheads
+       -- , arrowV, arrowV'
+       -- , arrowAt, arrowAt'
+       -- , arrowBetween, arrowBetween'
+       -- , connect, connect'
+       -- , connectPerim, connectPerim'
+       -- , connectOutside, connectOutside'
+       -- , arrow, arrow'
+       -- , straightShaft
+       -- , module Diagrams.TwoD.Arrowheads
 
-       , ArrowOpts(..)
+       -- , ArrowOpts(..)
 
-       , arrowHead
-       , arrowTail
-       , arrowShaft
-       , headGap
-       , tailGap
-       , gaps, gap
-       , headTexture
-       , headStyle
-       , tailTexture
-       , tailStyle
-       , shaftTexture
-       , shaftStyle
-       , headLength
-       , tailLength
-       , lengths
+       -- , arrowHead
+       -- , arrowTail
+       -- , arrowShaft
+       -- , headGap
+       -- , tailGap
+       -- , gaps, gap
+       -- , headTexture
+       -- , headStyle
+       -- , tailTexture
+       -- , tailStyle
+       -- , shaftTexture
+       -- , shaftStyle
+       -- , headLength
+       -- , tailLength
+       -- , lengths
 
          -- * Text
        , text, topLeftText, alignedText, baselineText
@@ -290,7 +290,7 @@ module Diagrams.TwoD
        , showTrace
        , showTrace'
        , TraceOpts(..), tColor, tScale, tMinSize, tPoints
-       , showLabels
+       -- , showLabels
 
        ) where
 

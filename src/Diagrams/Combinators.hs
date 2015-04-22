@@ -16,27 +16,27 @@
 -----------------------------------------------------------------------------
 
 module Diagrams.Combinators
-       ( -- * Unary operations
+  ( -- * Unary operations
 
-         withEnvelope, withTrace
-       , phantom, strut
-       , pad, frame
-       , extrudeEnvelope, intrudeEnvelope
+    withEnvelope, withTrace
+  , phantom, strut
+  , pad, frame
+  , extrudeEnvelope, intrudeEnvelope
 
-         -- * Binary operations
-       , atop
-       , beneath
-       , beside
-       , atDirection
+    -- * Binary operations
+  , atop
+  , beneath
+  , beside
+  , atDirection
 
-         -- * n-ary operations
-       , appends
-       , position, atPoints
-       , cat, cat'
-       , CatOpts(_catMethod, _sep), catMethod, sep
-       , CatMethod(..)
+    -- * n-ary operations
+  , appends
+  , position, atPoints
+  , cat, cat'
+  , CatOpts(_catMethod, _sep), catMethod, sep
+  , CatMethod(..)
 
-       ) where
+  ) where
 
 import           Control.Lens          hiding (( # ), beside)
 import           Data.Default.Class
@@ -49,6 +49,7 @@ import qualified Data.Tree.DUAL        as D
 import           Diagrams.Core
 import           Diagrams.Core.Types   (QDiagram (QD))
 import           Diagrams.Direction
+import           Diagrams.Points
 import           Diagrams.Segment      (straight)
 import           Diagrams.Util
 
@@ -86,7 +87,8 @@ withTrace = setTrace . getTrace
 -- | @phantom x@ produces a \"phantom\" diagram, which has the same
 --   envelope and trace as @x@ but produces no output.
 phantom :: (InSpace v n a, Monoid' m, Enveloped a, Traced a) => a -> QDiagram b v n m
-phantom a = QD $ D.leafU ((inj . toDeletable . getEnvelope $ a) <> (inj . toDeletable . getTrace $ a))
+phantom a = QD $ D.leafU (mempty & _Wrapped . _1 .~ getEnvelope a
+                                 & _Wrapped . _2 .~ getTrace a)
 
 -- | @pad s@ \"pads\" a diagram, expanding its envelope by a factor of
 --   @s@ (factors between 0 and 1 can be used to shrink the envelope).
@@ -119,7 +121,7 @@ frame s = over envelope (onEnvelope $ \f x -> f x + s)
 --   > strutEx = (circle 1 ||| strut unitX ||| circle 1) # centerXY # pad 1.1
 strut :: (Metric v, OrderedField n, Monoid' m)
       => v n -> QDiagram b v n m
-strut v = QD $ D.leafU (inj . toDeletable $ env)
+strut v = QD $ D.leafU (mempty & _Wrapped . _1 .~ env)
   where env = translate ((-0.5) *^ v) . getEnvelope $ straight v
   -- note we can't use 'phantom' here because it tries to construct a
   -- trace as well, and segments do not have a trace in general (only
@@ -172,11 +174,20 @@ deformEnvelope s v = over (envelope . _Wrapping Envelope) deformE
 -- Combining two objects
 ------------------------------------------------------------
 
+-- | A convenient synonym for 'mappend' on diagrams, designed to be
+--   used infix (to help remember which diagram goes on top of which
+--   when combining them, namely, the first on top of the second).
+atop :: (OrderedField n, Metric v, Semigroup m)
+     => QDiagram b v n m -> QDiagram b v n m -> QDiagram b v n m
+atop = (<>)
+
+infixl 6 `atop`
+
 -- | @beneath@ is just a convenient synonym for @'flip' 'atop'@; that is,
 --   @d1 \`beneath\` d2@ is the diagram with @d2@ superimposed on top of
 --   @d1@.
 beneath :: (Metric v, OrderedField n, Monoid' m)
-     => QDiagram b v n m -> QDiagram b v n m -> QDiagram b v n m
+        => QDiagram b v n m -> QDiagram b v n m -> QDiagram b v n m
 beneath = flip atop
 
 infixl 6 `beneath`

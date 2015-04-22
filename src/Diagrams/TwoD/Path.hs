@@ -74,6 +74,7 @@ import           Diagrams.Segment
 import           Diagrams.Solve.Polynomial
 import           Diagrams.Trail
 import           Diagrams.TrailLike
+import           Diagrams.Query
 import           Diagrams.TwoD.Segment
 import           Diagrams.TwoD.Types
 import           Diagrams.TwoD.Vector
@@ -209,9 +210,9 @@ strokeP' opts path
       = mkQD (Prim p)
          (getEnvelope p)
          (getTrace p)
-         (fromNames . concat $
-           zipWith zip (opts^.vertexNames) ((map . map) subPoint (pathVertices p))
-         )
+         -- (fromNames . concat $
+         --   zipWith zip (opts^.vertexNames) ((map . map) subPoint (pathVertices p))
+         -- )
          (Query $ Any . flip (runFillRule (opts^.queryFillRule)) p)
 
 -- | 'stroke'' specialised to 'Path'.

@@ -58,7 +58,6 @@ sphere :: (Typeable n, OrderedField n, Renderable (Ellipsoid n) b) => QDiagram b
 sphere = mkQD (Prim $ Ellipsoid mempty)
               (mkEnvelope sphereEnv)
               (mkTrace sphereTrace)
-              mempty
               (Query sphereQuery)
   where
     sphereEnv v         = 1 / norm v
@@ -87,7 +86,6 @@ cube :: (Typeable n, OrderedField n, Renderable (Box n) b) => QDiagram b V3 n An
 cube = mkQD (Prim $ Box mempty)
             (mkEnvelope boxEnv)
             (mkTrace boxTrace)
-            mempty
             (Query boxQuery)
   where
     corners = mkR3 <$> [0,1] <*> [0,1] <*> [0,1]
@@ -125,7 +123,6 @@ frustum :: (TypeableFloat n, Renderable (Frustum n) b) => n -> n -> QDiagram b V
 frustum r0 r1 = mkQD (Prim $ Frustum r0 r1 mempty)
                  (mkEnvelope frEnv)
                  (mkTrace frTrace)
-                 mempty
                  (Query frQuery)
   where
     projectXY u = u ^-^ project unitZ u

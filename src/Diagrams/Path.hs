@@ -72,7 +72,7 @@ import           Data.Typeable
 import           Diagrams.Align
 import           Diagrams.Core
 import           Diagrams.Located
-import           Diagrams.Points
+import           Diagrams.Points (centroid)
 import           Diagrams.Segment
 import           Diagrams.Trail
 import           Diagrams.TrailLike

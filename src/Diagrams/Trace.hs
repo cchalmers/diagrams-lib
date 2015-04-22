@@ -23,13 +23,14 @@ module Diagrams.Trace
     , traceV, traceP, maxTraceV, maxTraceP
 
       -- * Subdiagram traces
-    , boundaryFrom, boundaryFromMay
+    -- , boundaryFrom, boundaryFromMay
 
     ) where
 
-import           Diagrams.Core        (OrderedField, Point, Subdiagram, location,
-                                       origin, setTrace, trace)
+-- import           Diagrams.Core        (OrderedField, Point, Subdiagram, location,
+--                                        origin, setTrace, trace)
 import           Diagrams.Core.Trace
+import           Diagrams.Core.Types (trace, setTrace)
 
 import           Data.Maybe
 import           Data.Semigroup
@@ -38,19 +39,19 @@ import           Diagrams.Combinators (withTrace)
 import           Linear.Metric
 import           Linear.Vector
 
--- | Compute the furthest point on the boundary of a subdiagram,
---   beginning from the location (local origin) of the subdiagram and
---   moving in the direction of the given vector.  If there is no such
---   point, the origin is returned; see also 'boundaryFromMay'.
-boundaryFrom :: (OrderedField n, Metric v, Semigroup m)
-              => Subdiagram b v n m -> v n -> Point v n
-boundaryFrom s v = fromMaybe origin $ boundaryFromMay s v
+-- -- | Compute the furthest point on the boundary of a subdiagram,
+-- --   beginning from the location (local origin) of the subdiagram and
+-- --   moving in the direction of the given vector.  If there is no such
+-- --   point, the origin is returned; see also 'boundaryFromMay'.
+-- boundaryFrom :: (OrderedField n, Metric v, Semigroup m)
+--               => Subdiagram b v n m -> v n -> Point v n
+-- boundaryFrom s v = fromMaybe origin $ boundaryFromMay s v
 
--- | Compute the furthest point on the boundary of a subdiagram,
---   beginning from the location (local origin) of the subdiagram and
---   moving in the direction of the given vector, or @Nothing@ if
---   there is no such point.
-boundaryFromMay :: (Metric v, OrderedField n, Semigroup m)
-                => Subdiagram b v n m -> v n -> Maybe (Point v n)
-boundaryFromMay s v = traceP (location s) (negated v) s
+-- -- | Compute the furthest point on the boundary of a subdiagram,
+-- --   beginning from the location (local origin) of the subdiagram and
+-- --   moving in the direction of the given vector, or @Nothing@ if
+-- --   there is no such point.
+-- boundaryFromMay :: (Metric v, OrderedField n, Semigroup m)
+--                 => Subdiagram b v n m -> v n -> Maybe (Point v n)
+-- boundaryFromMay s v = traceP (location s) (negated v) s
 

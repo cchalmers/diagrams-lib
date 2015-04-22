@@ -30,7 +30,7 @@ module Diagrams.TwoD.Model
        , TraceOpts(..), tColor, tScale, tMinSize, tPoints
 
          -- * Showing labels of all named subdiagrams
-       , showLabels
+       -- , showLabels
        ) where
 
 import           Control.Arrow            (second)
@@ -116,9 +116,9 @@ showOrigin' oo d = o <> d
         V2 w h = oo^.oScale *^ size d
         sz     = maximum [w, h, oo^.oMinSize]
 
--- | Mark the envelope with an approximating cubic spline with control 
+-- | Mark the envelope with an approximating cubic spline with control
 --   over the color, line width and number of points.
-showEnvelope' :: (Enum n, TypeableFloat n, Renderable (Path V2 n) b) 
+showEnvelope' :: (Enum n, TypeableFloat n, Renderable (Path V2 n) b)
               => EnvelopeOpts n -> QDiagram b V2 n Any -> QDiagram b V2 n Any
 showEnvelope' opts d = cubicSpline True pts # lc (opts^.eColor)
                                             # lw w <> d
@@ -137,7 +137,7 @@ showEnvelope = showEnvelope' def
 
 -- | Mark the trace of a diagram, with control over colour and scale
 -- of marker dot and the number of points on the trace.
-showTrace' :: (Enum n, TypeableFloat n, Renderable (Path V2 n) b) 
+showTrace' :: (Enum n, TypeableFloat n, Renderable (Path V2 n) b)
           => TraceOpts n -> QDiagram b V2 n Any -> QDiagram b V2 n Any
 showTrace' opts d =  atPoints ps (repeat pt) <> d
   where
@@ -154,7 +154,7 @@ showTrace' opts d =  atPoints ps (repeat pt) <> d
 
 -- | Mark the trace of a diagram by placing 64 red dots 1/100th its size
 --   along the trace.
-showTrace :: (Enum n, TypeableFloat n, Renderable (Path V2 n) b) 
+showTrace :: (Enum n, TypeableFloat n, Renderable (Path V2 n) b)
           => QDiagram b V2 n Any -> QDiagram b V2 n Any
 showTrace = showTrace' def
 
@@ -162,18 +162,18 @@ showTrace = showTrace' def
 -- Labeling named points
 ------------------------------------------------------------
 
-showLabels :: (TypeableFloat n, Renderable (Text n) b, Semigroup m)
-           => QDiagram b V2 n m -> QDiagram b V2 n Any
-showLabels d =
-             ( mconcat
-             . map (\(n,p) -> text (simpleName n) # translate (p .-. origin))
-             . concatMap (\(n,ps) -> zip (repeat n) ps)
-             . (map . second . map) location
-             . M.assocs
-             $ m
-             ) <>
-             fmap (const (Any False)) d
-  where
-    SubMap m = d^.subMap
-    simpleName (Name ns) = intercalate " .> " $ map simpleAName ns
-    simpleAName (AName n) = show n
+-- showLabels :: (TypeableFloat n, Renderable (Text n) b, Semigroup m)
+--            => QDiagram b V2 n m -> QDiagram b V2 n Any
+-- showLabels d =
+--              ( mconcat
+--              . map (\(n,p) -> text (simpleName n) # translate (p .-. origin))
+--              . concatMap (\(n,ps) -> zip (repeat n) ps)
+--              . (map . second . map) location
+--              . M.assocs
+--              $ m
+--              ) <>
+--              fmap (const (Any False)) d
+--   where
+--     SubMap m = d^.subMap
+--     simpleName (Name ns) = intercalate " .> " $ map simpleAName ns
+--     simpleAName (AName n) = show n

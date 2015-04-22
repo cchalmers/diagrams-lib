@@ -100,7 +100,6 @@ mkText a t = recommendFillColor black
                        (pointEnvelope origin)
                        mempty
                        mempty
-                       mempty
 
 -- ~~~~ Note [recommendFillColor]
 

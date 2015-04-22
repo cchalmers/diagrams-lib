@@ -118,7 +118,7 @@ module Diagrams
 
   ) where
 
-import           Diagrams.Core
+import           Diagrams.Core hiding ((*.))
 
 import           Diagrams.Align
 import           Diagrams.Angle

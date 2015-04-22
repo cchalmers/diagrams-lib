@@ -85,7 +85,6 @@ image img
   = mkQD (Prim img)
          (getEnvelope r)
          (getTrace r)
-         mempty
          (Query $ \p -> Any (isInsideEvenOdd p r))
   where
     r = rect (fromIntegral w) (fromIntegral h)

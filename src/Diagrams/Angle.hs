@@ -221,9 +221,9 @@ class HasTheta t => HasPhi t where
 
 -- Point instances
 instance HasTheta v => HasTheta (Point v) where
-  _theta = lensP . _theta
+  _theta = _Point . _theta
   {-# INLINE _theta #-}
 
 instance HasPhi v => HasPhi (Point v) where
-  _phi = lensP . _phi
+  _phi = _Point . _phi
   {-# INLINE _phi #-}

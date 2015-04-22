@@ -14,14 +14,14 @@
 -----------------------------------------------------------------------------
 
 module Diagrams.TwoD.Types
-       ( -- * 2D Euclidean space
-         V2 (..), R1 (..), R2 (..)
-       , P2, T2
-       , r2, unr2, mkR2, r2Iso
-       , p2, mkP2, unp2, p2Iso
-       , r2PolarIso
-       , HasR (..)
-       ) where
+  ( -- * 2D Euclidean space
+    V2 (..), R1 (..), R2 (..)
+  , P2, T2
+  , r2, unr2, mkR2, r2Iso
+  , p2, mkP2, unp2, p2Iso
+  , r2PolarIso
+  , HasR (..)
+  ) where
 
 import           Control.Lens            (Iso', Lens', iso, _1, _2)
 
@@ -82,7 +82,7 @@ class HasR t where
   _r :: RealFloat n => Lens' (t n) n
 
 instance HasR v => HasR (Point v) where
-  _r = lensP . _r
+  _r = _Point . _r
   {-# INLINE _r #-}
 
 instance HasR V2 where

@@ -59,7 +59,7 @@ module Diagrams.TwoD.Attributes (
   , fillColor, fc, fcA, recommendFillColor
 
   -- * Compilation utilities
-  , splitTextureFills
+  -- , splitTextureFills
 
   ) where
 
@@ -73,7 +73,7 @@ import           Data.Semigroup
 import           Diagrams.Attributes
 import           Diagrams.Attributes.Compile
 import           Diagrams.Core
-import           Diagrams.Core.Types         (RTree)
+-- import           Diagrams.Core.Types         (RTree)
 import           Diagrams.Located            (unLoc)
 import           Diagrams.Path               (Path, pathTrails)
 import           Diagrams.Trail              (isLoop)
@@ -404,27 +404,27 @@ fcA = fillColor
 
 -- Split fills ---------------------------------------------------------
 
-data FillTextureLoops n = FillTextureLoops
+-- data FillTextureLoops n = FillTextureLoops
 
-instance Typeable n => SplitAttribute (FillTextureLoops n) where
-  type AttrType (FillTextureLoops n) = FillTexture n
-  type PrimType (FillTextureLoops n) = Path V2 n
+-- instance Typeable n => SplitAttribute (FillTextureLoops n) where
+--   type AttrType (FillTextureLoops n) = FillTexture n
+--   type PrimType (FillTextureLoops n) = Path V2 n
 
-  primOK _ = all (isLoop . unLoc) . pathTrails
+--   primOK _ = all (isLoop . unLoc) . pathTrails
 
--- | Push fill attributes down until they are at the root of subtrees
---   containing only loops. This makes life much easier for backends,
---   which typically have a semantics where fill attributes are
---   applied to lines/non-closed paths as well as loops/closed paths,
---   whereas in the semantics of diagrams, fill attributes only apply
---   to loops.
-splitTextureFills
-  :: forall b v n a. (
-#if __GLASGOW_HASKELL__ > 707
-                       Typeable v
-#else
-                       Typeable1 v
-#endif
+-- -- | Push fill attributes down until they are at the root of subtrees
+-- --   containing only loops. This makes life much easier for backends,
+-- --   which typically have a semantics where fill attributes are
+-- --   applied to lines/non-closed paths as well as loops/closed paths,
+-- --   whereas in the semantics of diagrams, fill attributes only apply
+-- --   to loops.
+-- splitTextureFills
+--   :: forall b v n a. (
+-- #if __GLASGOW_HASKELL__ > 707
+--                        Typeable v
+-- #else
+--                        Typeable1 v
+-- #endif
 
-                     , Typeable n) => RTree b v n a -> RTree b v n a
-splitTextureFills = splitAttr (FillTextureLoops :: FillTextureLoops n)
+--                      , Typeable n) => RTree b v n a -> RTree b v n a
+-- splitTextureFills = splitAttr (FillTextureLoops :: FillTextureLoops n)
